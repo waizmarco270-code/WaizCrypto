@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>WaizCrypto - Real-Time API FinTech</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1FB8CD">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WaizCrypto">
+    
+    <!-- Performance Optimizations -->
+    <meta name="referrer" content="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://api.coingecko.com">
+    <link rel="dns-prefetch" href="https://www.alphavantage.co">
+    <link rel="dns-prefetch" href="https://api.exchangeratesapi.io">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIldhaXpDcnlwdG8gLSBSZWFsLVRpbWUgQVBJIEZpblRlY2giLAogICJzaG9ydF9uYW1lIjogIldhaXpDcnlwdG8iLAogICJkZXNjcmlwdGlvbiI6ICJSZWFsLXRpbWUgY3J5cHRvY3VycmVuY3kgYW5kIHN0b2NrIHRyYWNrZXIgd2l0aCBjdXJyZW5jeSBjb252ZXJ0ZXIiLAogICJzdGFydF91cmwiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgInRoZW1lX2NvbG9yIjogIiMxRkI4Q0QiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTBhMGEiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTTI1dmNtY3ZNbUYyZFdkdk5qVXZjM1puSWlCM2FXUjBhRDBpTWpRaUlHaGxhV2RvZEQwaU1qUWlJSFpwWlhkQ2IzZzlJakFnTUNBeU5DQXlOQ0krUEhCaGRHZGdaRDBpTkNBeE1pNDJJekl1TmpVZ01UWWVOVEF0T1ZFZ2VXTXdkeTAzSVRJdU56UjFPU0UwUEE4TDNCaGRHZyFQRUVZalFNekZIa2dkVGN2Rks5QlZKNUlWSFZEMEcxNUJBPU49IiwKICAgICAgInNpemVzIjogIjI0eDI0IiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICA+Cn0=">
+    
+    <!-- Fonts & Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- GSAP for Ultra Performance Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    
+    <!-- Chart.js for Performance Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Splash Screen for PWA -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-logo">
+            <div class="logo-icon">₿</div>
+            <h1>WaizCrypto</h1>
+            <p>Real-Time API Integration</p>
+            <div class="splash-loader"></div>
+        </div>
+    </div>
+
+    <!-- Performance-Optimized Header -->
+    <header class="header" id="mainHeader">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" id="logoContainer">
+                    <h1 class="logo-text">WaizCrypto</h1>
+                    <span class="logo-subtitle">Real-Time APIs</span>
+                    <div class="performance-indicator" id="perfIndicator">
+                        <span class="perf-text">60fps</span>
+                    </div>
+                </div>
+                <div class="theme-switcher" id="themeSwitcher">
+                    <button class="theme-btn active" data-theme="dark" title="Dark Mode">🌙</button>
+                    <button class="theme-btn" data-theme="light" title="Light Mode">☀️</button>
+                    <button class="theme-btn" data-theme="neon" title="Neon Mode">⚡</button>
+                    <button class="theme-btn" data-theme="sakura" title="Sakura Mode">🌸</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- High-Performance Navigation -->
+    <nav class="main-nav" id="mainNav">
+        <div class="container">
+            <div class="nav-tabs" id="navTabs">
+                <button class="nav-tab active" data-tab="crypto" id="cryptoTab">
+                    <span class="nav-icon">₿</span>
+                    <span class="nav-label">Live Crypto (50)</span>
+                </button>
+                <button class="nav-tab" data-tab="stocks" id="stocksTab">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-label">Live Stocks (30)</span>
+                </button>
+                <button class="nav-tab" data-tab="converter" id="converterTab">
+                    <span class="nav-icon">💱</span>
+                    <span class="nav-label">Live Converter</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Real-Time API Status Indicator -->
+    <div class="api-status" id="apiStatus">
+        <div class="status-item">
+            <span class="status-dot" id="coinGeckoStatus"></span>
+            <span>CoinGecko API</span>
+        </div>
+        <div class="status-item">
+            <span class="status-dot" id="alphaVantageStatus"></span>
+            <span>Alpha Vantage API</span>
+        </div>
+        <div class="status-item">
+            <span class="status-dot" id="exchangeRateStatus"></span>
+            <span>Exchange Rate API</span>
+        </div>
+    </div>
+
+    <!-- Ultra-Performance Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="container">
+            <!-- Ultra-Fast Loading Screen -->
+            <div class="loading-screen" id="loadingScreen">
+                <div class="loading-animation">
+                    <div class="loading-ring"></div>
+                    <div class="loading-ring"></div>
+                    <div class="loading-ring"></div>
+                </div>
+                <p class="loading-text">Fetching real-time data from APIs...</p>
+                <div class="loading-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <!-- Crypto Tracker Tab with Real API Data -->
+            <div class="tab-content active" id="crypto">
+                <div class="section-header" id="cryptoHeader">
+                    <div class="header-left">
+                        <h2>Top 50 Cryptocurrencies - Live Data</h2>
+                        <div class="market-stats" id="marketStats">
+                            <span class="stat">Total Market Cap: <strong id="totalMarketCap">Loading...</strong></span>
+                            <span class="stat">24h Volume: <strong id="total24hVolume">Loading...</strong></span>
+                            <span class="stat">Last Update: <strong id="cryptoLastUpdate">Never</strong></span>
+                        </div>
+                    </div>
+                    <div class="header-controls">
+                        <div class="search-container">
+                            <input type="text" id="cryptoSearch" class="search-input" placeholder="⚡ Search real crypto data..." autocomplete="off">
+                        </div>
+                        <button class="btn btn--outline" id="refreshCrypto">🔄 Refresh API</button>
+                    </div>
+                </div>
+                
+                <!-- Virtual Scrolling Container -->
+                <div class="virtual-scroll-container" id="cryptoContainer">
+                    <div class="virtual-scroll-content" id="cryptoGrid">
+                        <!-- Real crypto data will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stock Market Tab with Real Alpha Vantage Data -->
+            <div class="tab-content" id="stocks">
+                <div class="section-header" id="stocksHeader">
+                    <div class="header-left">
+                        <h2>Top 30 Company Stocks - Live Data</h2>
+                        <div class="market-stats" id="stockMarketStats">
+                            <span class="stat">Market Status: <strong id="marketStatus">Loading...</strong></span>
+                            <span class="stat">Data Source: <strong>Alpha Vantage API</strong></span>
+                            <span class="stat">Last Update: <strong id="stocksLastUpdate">Never</strong></span>
+                        </div>
+                    </div>
+                    <div class="header-controls">
+                        <div class="search-container">
+                            <input type="text" id="stockSearch" class="search-input" placeholder="⚡ Search live stocks..." autocomplete="off">
+                        </div>
+                        <button class="btn btn--secondary" id="refreshStocks">🔄 Refresh API</button>
+                    </div>
+                </div>
+                
+                <!-- Virtual Scrolling Container for Stocks -->
+                <div class="virtual-scroll-container" id="stocksContainer">
+                    <div class="virtual-scroll-content" id="stocksGrid">
+                        <!-- Real stock data will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Currency Converter with Convert Button -->
+            <div class="tab-content" id="converter">
+                <div class="section-header">
+                    <h2>Live Currency Converter - Real Exchange Rates</h2>
+                    <div class="converter-stats">
+                        <span class="stat">Real-time rates from Exchange Rate API</span>
+                        <span class="stat">Updated: <span id="lastUpdated">Never</span></span>
+                    </div>
+                </div>
+                
+                <div class="converter-container">
+                    <div class="converter-card" id="converterCard">
+                        <div class="converter-section from-section">
+                            <label class="form-label">From</label>
+                            <div class="converter-input-group">
+                                <input type="number" id="fromAmount" class="converter-input" placeholder="1" value="1" min="0" step="any">
+                                <select id="fromCurrency" class="converter-select">
+                                    <optgroup label="🔥 Top Cryptocurrencies">
+                                        <option value="bitcoin">Bitcoin (BTC)</option>
+                                        <option value="ethereum">Ethereum (ETH)</option>
+                                        <option value="ripple">XRP (XRP)</option>
+                                        <option value="tether">Tether (USDT)</option>
+                                        <option value="binancecoin">BNB (BNB)</option>
+                                        <option value="solana">Solana (SOL)</option>
+                                        <option value="dogecoin">Dogecoin (DOGE)</option>
+                                        <option value="cardano">Cardano (ADA)</option>
+                                        <option value="chainlink">Chainlink (LINK)</option>
+                                        <option value="polygon">Polygon (POL)</option>
+                                    </optgroup>
+                                    <optgroup label="💰 Fiat Currencies">
+                                        <option value="USD">US Dollar (USD)</option>
+                                        <option value="EUR">Euro (EUR)</option>
+                                        <option value="INR">Indian Rupee (INR)</option>
+                                        <option value="GBP">British Pound (GBP)</option>
+                                        <option value="JPY">Japanese Yen (JPY)</option>
+                                        <option value="AUD">Australian Dollar (AUD)</option>
+                                        <option value="CAD">Canadian Dollar (CAD)</option>
+                                        <option value="CHF">Swiss Franc (CHF)</option>
+                                        <option value="CNY">Chinese Yuan (CNY)</option>
+                                        <option value="KRW">Korean Won (KRW)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="converter-swap">
+                            <button class="swap-btn" id="swapCurrencies" title="Swap currencies">
+                                <span class="swap-icon">⇄</span>
+                            </button>
+                        </div>
+
+                        <div class="converter-section to-section">
+                            <label class="form-label">To</label>
+                            <div class="converter-input-group">
+                                <input type="number" id="toAmount" class="converter-input" placeholder="Result will appear after conversion" readonly>
+                                <select id="toCurrency" class="converter-select">
+                                    <optgroup label="🔥 Top Cryptocurrencies">
+                                        <option value="bitcoin">Bitcoin (BTC)</option>
+                                        <option value="ethereum">Ethereum (ETH)</option>
+                                        <option value="ripple">XRP (XRP)</option>
+                                        <option value="tether">Tether (USDT)</option>
+                                        <option value="binancecoin">BNB (BNB)</option>
+                                        <option value="solana">Solana (SOL)</option>
+                                        <option value="dogecoin">Dogecoin (DOGE)</option>
+                                        <option value="cardano">Cardano (ADA)</option>
+                                        <option value="chainlink">Chainlink (LINK)</option>
+                                        <option value="polygon">Polygon (POL)</option>
+                                    </optgroup>
+                                    <optgroup label="💰 Fiat Currencies">
+                                        <option value="USD" selected>US Dollar (USD)</option>
+                                        <option value="EUR">Euro (EUR)</option>
+                                        <option value="INR">Indian Rupee (INR)</option>
+                                        <option value="GBP">British Pound (GBP)</option>
+                                        <option value="JPY">Japanese Yen (JPY)</option>
+                                        <option value="AUD">Australian Dollar (AUD)</option>
+                                        <option value="CAD">Canadian Dollar (CAD)</option>
+                                        <option value="CHF">Swiss Franc (CHF)</option>
+                                        <option value="CNY">Chinese Yuan (CNY)</option>
+                                        <option value="KRW">Korean Won (KRW)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Large Convert Button -->
+                        <div class="convert-button-container">
+                            <button class="convert-btn" id="convertBtn">
+                                <span class="convert-icon">💱</span>
+                                <span class="convert-text">CONVERT</span>
+                                <span class="convert-loading hidden">⏳</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animated Conversion Results Box -->
+                <div class="conversion-results hidden" id="conversionResults">
+                    <div class="results-header">
+                        <h3>Conversion Result</h3>
+                        <span class="results-timestamp" id="resultsTimestamp"></span>
+                    </div>
+                    <div class="results-content">
+                        <div class="conversion-display">
+                            <div class="from-display">
+                                <span class="amount" id="resultFromAmount">1</span>
+                                <span class="currency" id="resultFromCurrency">BTC</span>
+                            </div>
+                            <div class="conversion-arrow">→</div>
+                            <div class="to-display">
+                                <span class="amount" id="resultToAmount">0</span>
+                                <span class="currency" id="resultToCurrency">USD</span>
+                            </div>
+                        </div>
+                        <div class="exchange-rate-display">
+                            <span class="rate-label">Exchange Rate:</span>
+                            <span class="rate-value" id="exchangeRateValue">1 BTC = $0 USD</span>
+                        </div>
+                        <div class="conversion-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Data Source:</span>
+                                <span class="detail-value" id="dataSource">Real-time APIs</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Last Updated:</span>
+                                <span class="detail-value" id="lastUpdateTime">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Chart Modal -->
+    <div class="modal hidden" id="chartModal">
+        <div class="modal-content chart-modal-content">
+            <div class="modal-header">
+                <h3 id="chartTitle">Bitcoin (BTC) Chart</h3>
+                <div class="chart-controls">
+                    <button class="chart-period active" data-period="1">1D</button>
+                    <button class="chart-period" data-period="7">7D</button>
+                    <button class="chart-period" data-period="30">30D</button>
+                    <button class="chart-period" data-period="365">1Y</button>
+                </div>
+                <button class="modal-close" id="closeChart">&times;</button>
+            </div>
+            <div class="chart-container" style="position: relative; height: 400px;">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="chart-info">
+                <div class="chart-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Current Price</span>
+                        <span class="stat-value" id="chartCurrentPrice">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">24h Change</span>
+                        <span class="stat-value" id="chart24hChange">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Volume</span>
+                        <span class="stat-value" id="chartVolume">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Error Modal -->
+    <div class="modal hidden" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🚨 API Connection Error</h3>
+                <button class="modal-close" id="closeError">&times;</button>
+            </div>
+            <div class="error-content">
+                <p id="errorMessage">Failed to fetch real-time data from APIs. Please check your connection.</p>
+                <div class="error-actions">
+                    <button class="btn btn--primary" id="retryAPIs">🔄 Retry API Calls</button>
+                    <button class="btn btn--outline" id="closeErrorBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Install Banner -->
+    <div class="install-banner hidden" id="installBanner">
+        <div class="install-content">
+            <span class="install-icon">📱</span>
+            <span class="install-text">Install WaizCrypto for the best real-time experience!</span>
+            <button class="btn btn--primary" id="installBtn">Install</button>
+            <button class="btn btn--outline" id="dismissInstall">Not now</button>
+        </div>
+    </div>
+
+    <!-- Offline Indicator -->
+    <div class="offline-indicator hidden" id="offlineIndicator">
+        <span>📡 Offline - Real-time APIs unavailable</span>
+    </div>
+
+    <!-- Performance-Optimized Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 WaizCrypto Real-Time APIs. Built with live data.</p>
+                    <div class="footer-stats">
+                        <span>Real APIs</span> • <span>Live Data</span> • <span>60fps Performance</span>
+                    </div>
+                </div>
+                <button class="developer-credit" id="developerCredit">
+                    <span>🚀 Developed by Mohammad Waiz</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Developer Info Modal -->
+    <div class="modal hidden" id="developerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🚀 Real-Time API Developer</h3>
+                <button class="modal-close" id="closeDeveloper">&times;</button>
+            </div>
+            <div class="developer-info">
+                <div class="developer-avatar">👨‍💻</div>
+                <h4>Mohammad Waiz</h4>
+                <p class="developer-title">Real-Time API Integration Expert</p>
+                <div class="developer-skills">
+                    <span class="skill-tag">CoinGecko API</span>
+                    <span class="skill-tag">Alpha Vantage API</span>
+                    <span class="skill-tag">Exchange Rate API</span>
+                    <span class="skill-tag">Real-Time Data</span>
+                    <span class="skill-tag">GSAP Animations</span>
+                    <span class="skill-tag">60fps Performance</span>
+                </div>
+                <p class="developer-description">
+                    Specialized in integrating real-time financial APIs with ultra-high-performance web applications. 
+                    Expert in live data streaming, API rate limiting, and zero-lag user interfaces.
+                </p>
+                <div class="performance-achievements">
+                    <div class="achievement">
+                        <strong>3 APIs</strong>
+                        <span>Real-Time Integration</span>
+                    </div>
+                    <div class="achievement">
+                        <strong>30s</strong>
+                        <span>Update Interval</span>
+                    </div>
+                    <div class="achievement">
+                        <strong>Live</strong>
+                        <span>Market Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
